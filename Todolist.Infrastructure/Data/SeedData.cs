@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Todolist.Core.Entities;
-using Todolist.Infrastructure.Data;
 
-namespace Todolist.Web
+namespace Todolist.Infrastructure.Data
 {
     public static class SeedData
     {
@@ -27,17 +26,14 @@ namespace Todolist.Web
 
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var dbContext = new AppDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+            using var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>());
+            context.Database.EnsureCreated();
+            if (context.ToDoItems.Any())
             {
-                // Look for any TODO items.
-                if (dbContext.ToDoItems.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-                PopulateTestData(dbContext);
+                return; 
             }
+
+            PopulateTestData(context);
         }
 
         public static void PopulateTestData(AppDbContext dbContext)

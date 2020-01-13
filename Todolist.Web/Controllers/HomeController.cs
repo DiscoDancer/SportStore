@@ -20,9 +20,8 @@ namespace Todolist.Web.Controllers
 
         public IActionResult Index()
         {
-            int recordsAdded = DatabasePopulator.PopulateDatabase(_repository);
             var items = _repository.List<ToDoItem>().ToArray();
-            return View();
+            return View(items);
         }
 
         public IActionResult Privacy()

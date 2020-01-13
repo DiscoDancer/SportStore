@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Ardalis.ListStartupServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todolist.Core;
 using Todolist.Infrastructure;
+using Todolist.Infrastructure.Data;
 
 namespace Todolist.Web
 {
@@ -20,19 +18,11 @@ namespace Todolist.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext();
-
+            services.AddScoped<IRepository, EfRepository>();
             services.AddControllersWithViews();
-
-            services.Configure<ServiceConfig>(config =>
-            {
-                config.Services = new List<ServiceDescriptor>(services);
-            });
-
-            return ContainerSetup.InitializeWeb(Assembly.GetExecutingAssembly(), services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
