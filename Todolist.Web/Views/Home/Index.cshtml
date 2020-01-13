@@ -5,5 +5,15 @@
 }
 
 <div class="text-center">
-    <h1>@Model.Length</h1>
+
+    @foreach (var todo in Model)
+    {
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">@todo.Title</div>
+            <div class="card-body">
+                <p class="card-text">@todo.Description</p>
+                <button class="btn btn-primary">Mark as done</button>
+            </div>
+        </div>
+    }
 </div>
