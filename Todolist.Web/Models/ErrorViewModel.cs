@@ -1,5 +1,3 @@
-using System;
-
 namespace Todolist.Web.Models
 {
     public class ErrorViewModel
