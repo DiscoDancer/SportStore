@@ -1,4 +1,4 @@
-﻿namespace Todolist.Core.Entities
+﻿namespace TodoList.Core.Entities
 {
     public class ToDoItem: BaseEntity
     {

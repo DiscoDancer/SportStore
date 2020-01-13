@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
-using Todolist.Core.Entities;
+using TodoList.Core.Entities;
 
-namespace Todolist.Infrastructure.Data
+namespace TodoList.Infrastructure.Data
 {
     public static class SeedData
     {

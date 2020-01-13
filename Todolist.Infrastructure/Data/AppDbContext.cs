@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Todolist.Core.Entities;
+using TodoList.Core.Entities;
 
-namespace Todolist.Infrastructure.Data
+namespace TodoList.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

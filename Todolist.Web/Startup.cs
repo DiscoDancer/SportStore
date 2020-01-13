@@ -1,13 +1,14 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Todolist.Core;
-using Todolist.Infrastructure;
-using Todolist.Infrastructure.Data;
+using TodoList.Core;
+using TodoList.Infrastructure;
+using TodoList.Infrastructure.Data;
 
-namespace Todolist.Web
+namespace TodoList.Web
 {
     public class Startup
     {
@@ -23,6 +24,7 @@ namespace Todolist.Web
             services.AddDbContext();
             services.AddScoped<IRepository, EfRepository>();
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

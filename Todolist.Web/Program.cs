@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Todolist.Infrastructure.Data;
+using TodoList.Infrastructure.Data;
 
-namespace Todolist.Web
+namespace TodoList.Web
 {
     public class Program
     {

@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Todolist.Core\Todolist.Core.csproj" />
-    <ProjectReference Include="..\Todolist.Infrastructure\Todolist.Infrastructure.csproj" />
+    <ProjectReference Include="..\Todolist.Core\TodoList.Core.csproj" />
+    <ProjectReference Include="..\Todolist.Infrastructure\TodoList.Infrastructure.csproj" />
   </ItemGroup>
 
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Todolist.Core.Entities;
+using TodoList.Core.Entities;
 
-namespace Todolist.Core
+namespace TodoList.Core
 {
     public interface IRepository
     {

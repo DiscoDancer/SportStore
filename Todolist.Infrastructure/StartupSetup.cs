@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Todolist.Infrastructure.Data;
+using TodoList.Infrastructure.Data;
 
-namespace Todolist.Infrastructure
+namespace TodoList.Infrastructure
 {
     public static class StartupSetup
     {

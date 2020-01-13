@@ -1,26 +1,27 @@
 ﻿using System.Diagnostics;
+using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Todolist.Core;
-using Todolist.Core.Entities;
-using Todolist.Web.Models;
+using TodoList.Core;
+using TodoList.Core.Entities;
+using TodoList.Web.Models;
 
-namespace Todolist.Web.Controllers
+namespace TodoList.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IRepository _repository;
-        private readonly ILogger<HomeController> _logger;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IRepository repository)
+        public HomeController(IRepository repository, IMapper mapper)
         {
-            _logger = logger;
             _repository = repository;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var items = _repository.List<ToDoItem>().ToArray();
+            var items = _repository.List<ToDoItem>().Select(_mapper.Map<ToDoItemDTO>).ToArray();
             return View(items);
         }
 

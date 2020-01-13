@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Todolist.Core;
-using Todolist.Core.Entities;
+using TodoList.Core;
+using TodoList.Core.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Todolist.Infrastructure.Data
+namespace TodoList.Infrastructure.Data
 {
     public class EfRepository : IRepository
     {
