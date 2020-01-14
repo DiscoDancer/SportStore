@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SportStore.Core;
 using SportStore.Core.Entities;
 using SportStore.Infrastructure.Data;
+using SportStore.Infrastructure;
 
 namespace SportStore.Web
 {
@@ -15,8 +16,9 @@ namespace SportStore.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext();
             services.AddControllersWithViews();
-            services.AddTransient<IRepository<Product>, FakeProductRepository>();
+            services.AddTransient<IRepository<Product>, EfRepository<Product>>();
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -31,6 +33,11 @@ namespace SportStore.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "pagination",
+                    pattern: "Products/Page{productPage}",
+                    defaults: new { Controller = "Product", action = "List" });
+
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Product}/{action=List}/{id?}");
