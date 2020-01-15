@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using SportStore.Core.BusinessLogic;
 using SportStore.Core.Entities;
 using Xunit;
 

@@ -1,4 +1,5 @@
-﻿using SportStore.Core.Entities;
+﻿using SportStore.Core.BusinessLogic;
+using SportStore.Core.Entities;
 
 namespace SportStore.Web.Models.ViewModels
 {

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SportStore.Core.Entities;
 
-namespace SportStore.Core.Entities
+namespace SportStore.Core.BusinessLogic
 {
-    public class Cart : BaseEntity
+    public class Cart
     {
         private readonly List<CartLine> _lineCollection = new List<CartLine>();
 
