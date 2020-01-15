@@ -7,5 +7,6 @@ namespace SportStore.Web.Models.ViewModels
     {
         public IEnumerable<ProductDto> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }

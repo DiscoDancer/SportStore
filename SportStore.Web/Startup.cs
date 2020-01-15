@@ -20,6 +20,8 @@ namespace SportStore.Web
             services.AddControllersWithViews();
             services.AddTransient<IRepository<Product>, EfRepository<Product>>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,19 +30,49 @@ namespace SportStore.Web
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "pagination",
-                    pattern: "Products/Page{productPage}",
-                    defaults: new { Controller = "Product", action = "List" });
+                    name: null,
+                    pattern: "{category}/Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "List" }
+                );
 
                 endpoints.MapControllerRoute(
-                    "default",
-                    "{controller=Product}/{action=List}/{id?}");
+                    name: null,
+                    pattern: "Page{productPage:int}",
+                    defaults: new
+                    {
+                        controller = "Product",
+                        action = "List",
+                        productPage = 1
+                    }
+                );
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "{category}",
+                    defaults: new
+                    {
+                        controller = "Product",
+                        action = "List",
+                        productPage = 1
+                    }
+                );
+                endpoints.MapControllerRoute(
+                    name: null,
+                    pattern: "",
+                    defaults: new
+                    {
+                        controller = "Product",
+                        action = "List",
+                        productPage = 1
+                    });
+
+                endpoints.MapControllerRoute(name: null, pattern: "{controller}/{action}/{id?}");
             });
         }
     }

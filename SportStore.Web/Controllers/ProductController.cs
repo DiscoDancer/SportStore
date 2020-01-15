@@ -21,26 +21,30 @@ namespace SportStore.Web.Controllers
             _mapper = mapper;
         }
 
-        public ViewResult List(int productPage = 1)
+        public ViewResult List(string category, int productPage = 1)
         {
             var products = _repository
                 .List()
-                .Select(_mapper.Map<ProductDto>)
+                .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.Id)
                 .Skip((productPage - 1) * PageSize)
-                .Take(PageSize);
+                .Take(PageSize)
+                .Select(_mapper.Map<ProductDto>);
 
             var pagingInfo = new PagingInfo
             {
                 CurrentPage = productPage,
                 ItemsPerPage = PageSize,
-                TotalItems = _repository.List().Count()
+                TotalItems = category == null ?
+                    _repository.List().Count() :
+                    _repository.List().Count(e => e.Category == category)
             };
 
             return View(new ProductsListViewModel
             {
                 Products = products,
-                PagingInfo = pagingInfo
+                PagingInfo = pagingInfo,
+                CurrentCategory = category
             });
         } 
 
