@@ -24,10 +24,10 @@ namespace SportStore.Web.Controllers
             });
         }
 
-        public RedirectToActionResult AddToCart(int productId, string returnUrl)
+        public RedirectToActionResult AddToCart(int id, string returnUrl)
         {
             var product = _repository.List()
-                .FirstOrDefault(p => p.Id == productId);
+                .FirstOrDefault(p => p.Id == id);
 
             if (product != null)
             {
