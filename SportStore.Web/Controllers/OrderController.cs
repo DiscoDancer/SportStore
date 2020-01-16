@@ -24,7 +24,7 @@ namespace SportStore.Web.Controllers
         public ViewResult Checkout() => View(new OrderDto());
 
         [HttpPost]
-        public IActionResult Checkout(Order order)
+        public IActionResult Checkout(OrderDto order)
         {
             if (!_cart.Lines.Any())
             {
@@ -37,9 +37,27 @@ namespace SportStore.Web.Controllers
             }
 
             order.Lines = _cart.Lines.ToArray();
-            _repository.Add(order);
+            _repository.Add(_mapper.Map<Order>(order));
             return RedirectToAction(nameof(Completed));
 
+        }
+
+        public ViewResult List() =>
+            View(_repository.List().Where(o => !o.Shipped).Select(_mapper.Map<OrderDto>));
+
+        [HttpPost]
+        public IActionResult MarkShipped(int id)
+        {
+            var order = _repository.List()
+                .FirstOrDefault(o => o.Id == id);
+
+            if (order != null)
+            {
+                order.Shipped = true;
+                _repository.Update(order);
+            }
+
+            return RedirectToAction(nameof(List));
         }
 
         public ViewResult Completed()

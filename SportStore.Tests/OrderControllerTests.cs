@@ -6,6 +6,7 @@ using SportStore.Core.BusinessLogic;
 using SportStore.Core.Entities;
 using SportStore.Web;
 using SportStore.Web.Controllers;
+using SportStore.Web.Models.Dto;
 using Xunit;
 
 namespace SportStore.Tests
@@ -21,7 +22,7 @@ namespace SportStore.Tests
             // Arrange
             var mock = new Mock<IRepository<Order>>();
             var cart = new Cart();
-            var order = new Order();
+            var order = new OrderDto();
             var target = new OrderController(mock.Object, cart, _mapper);
 
             // Act
@@ -45,7 +46,7 @@ namespace SportStore.Tests
             target.ModelState.AddModelError("error", "error");
 
             // Act - try to checkout
-            var result = target.Checkout(new Order()) as ViewResult;
+            var result = target.Checkout(new OrderDto()) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -64,7 +65,7 @@ namespace SportStore.Tests
 
             // Act
             var result =
-                target.Checkout(new Order()) as RedirectToActionResult;
+                target.Checkout(new OrderDto()) as RedirectToActionResult;
 
             // Assert
             Assert.NotNull(result);

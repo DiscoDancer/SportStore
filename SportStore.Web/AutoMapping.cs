@@ -10,6 +10,7 @@ namespace SportStore.Web
         {
             CreateMap<Product, ProductDto>();
             CreateMap<Order, OrderDto>(); 
+            CreateMap<OrderDto, Order>(); 
         }
     }
 }
