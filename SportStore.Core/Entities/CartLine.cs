@@ -1,8 +1,6 @@
-﻿using SportStore.Core.Entities;
-
-namespace SportStore.Core.BusinessLogic
+﻿namespace SportStore.Core.Entities
 {
-    public class CartLine
+    public class CartLine : BaseEntity
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }

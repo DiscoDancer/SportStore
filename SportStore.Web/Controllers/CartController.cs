@@ -11,16 +11,19 @@ namespace SportStore.Web.Controllers
     public class CartController : Controller
     {
         private readonly IRepository<Product> _repository;
-        public CartController(IRepository<Product> repo)
+        private readonly Cart _cart;
+
+        public CartController(IRepository<Product> repo, Cart cartService)
         {
             _repository = repo;
+            _cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = _cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -29,35 +32,23 @@ namespace SportStore.Web.Controllers
         {
             var product = _repository.List()
                 .FirstOrDefault(p => p.Id == id);
-
             if (product != null)
             {
-                var cart = GetCart();
-                cart.AddItem(product, 1);
-                SaveCart(cart);
+                _cart.AddItem(product, 1);
             }
-
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToActionResult RemoveFromCart(int productId,
+        public RedirectToActionResult RemoveFromCart(int id,
             string returnUrl)
         {
             var product = _repository.List()
-                .FirstOrDefault(p => p.Id == productId);
+                .FirstOrDefault(p => p.Id == id);
             if (product != null)
             {
-                var cart = GetCart();
-                cart.RemoveLine(product);
-                SaveCart(cart);
+                _cart.RemoveLine(product);
             }
             return RedirectToAction("Index", new { returnUrl });
-        }
-        private Cart GetCart() => HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
-
-        private void SaveCart(Cart cart)
-        {
-            HttpContext.Session.SetJson("Cart", cart);
         }
     }
 }

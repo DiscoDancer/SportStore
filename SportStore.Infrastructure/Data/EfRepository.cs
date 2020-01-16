@@ -8,41 +8,41 @@ namespace SportStore.Infrastructure.Data
 {
     public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly AppDbContext _dbContext;
+        protected readonly AppDbContext DbContext;
 
         public EfRepository(AppDbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            return DbContext.Set<T>().SingleOrDefault(e => e.Id == id);
         }
 
-        public List<T> List()
+        public virtual List<T> List()
         {
-            return _dbContext.Set<T>().ToList();
+            return DbContext.Set<T>().ToList();
         }
 
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
+            DbContext.Set<T>().Add(entity);
+            DbContext.SaveChanges();
 
             return entity;
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
+            DbContext.Set<T>().Remove(entity);
+            DbContext.SaveChanges();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            DbContext.Entry(entity).State = EntityState.Modified;
+            DbContext.SaveChanges();
         }
     }
 }

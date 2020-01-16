@@ -8,7 +8,8 @@ namespace SportStore.Web
     {
         public AutoMapping()
         {
-            CreateMap<Product, ProductDto>(); // means you want to map from User to UserDTO
+            CreateMap<Product, ProductDto>();
+            CreateMap<Order, OrderDto>(); 
         }
     }
 }

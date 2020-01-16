@@ -1,12 +1,15 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SportStore.Core;
+using SportStore.Core.BusinessLogic;
 using SportStore.Core.Entities;
 using SportStore.Infrastructure.Data;
 using SportStore.Infrastructure;
+using SportStore.Web.Models;
 
 namespace SportStore.Web
 {
@@ -18,7 +21,13 @@ namespace SportStore.Web
         {
             services.AddDbContext();
             services.AddControllersWithViews();
+            // Transient: new for every service call
             services.AddTransient<IRepository<Product>, EfRepository<Product>>();
+            services.AddTransient<IRepository<Order>, OrderEfRepository>();
+            // Scoped: new for every request
+            services.AddScoped(SessionCart.GetCart);
+            // Singleton: shared between requests
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAutoMapper(typeof(Startup));
             services.AddMemoryCache();
             services.AddSession();
