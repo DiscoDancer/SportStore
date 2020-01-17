@@ -9,6 +9,7 @@ namespace SportStore.Web
         public AutoMapping()
         {
             CreateMap<Product, ProductDto>();
+            CreateMap<ProductDto, Product>();
             CreateMap<Order, OrderDto>(); 
             CreateMap<OrderDto, Order>(); 
         }
