@@ -10,6 +10,8 @@ namespace SportStore.Infrastructure
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite("Data Source=database.sqlite")); // will be created in web project root
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlite("Data Source=identity-database.sqlite"));
         }
     }
 }

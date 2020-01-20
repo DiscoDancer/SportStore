@@ -5,7 +5,8 @@ namespace SportStore.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions options) : base(options)
+        // if you replace DbContextOptions<AppDbContext> -> DbContextOptions app will crash
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 

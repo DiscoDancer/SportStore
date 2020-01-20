@@ -2,13 +2,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SportStore.Core;
-using SportStore.Core.BusinessLogic;
 using SportStore.Core.Entities;
-using SportStore.Infrastructure.Data;
 using SportStore.Infrastructure;
+using SportStore.Infrastructure.Data;
 using SportStore.Web.Models;
 
 namespace SportStore.Web
@@ -31,6 +31,9 @@ namespace SportStore.Web
             services.AddAutoMapper(typeof(Startup));
             services.AddMemoryCache();
             services.AddSession();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,21 +43,22 @@ namespace SportStore.Web
 
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseRouting();
 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}/Page{productPage:int}",
-                    defaults: new { controller = "Product", action = "List" }
+                    null,
+                    "{category}/Page{productPage:int}",
+                    new {controller = "Product", action = "List"}
                 );
 
                 endpoints.MapControllerRoute(
-                    name: null,
-                    pattern: "Page{productPage:int}",
-                    defaults: new
+                    null,
+                    "Page{productPage:int}",
+                    new
                     {
                         controller = "Product",
                         action = "List",
@@ -62,9 +66,9 @@ namespace SportStore.Web
                     }
                 );
                 endpoints.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}",
-                    defaults: new
+                    null,
+                    "{category}",
+                    new
                     {
                         controller = "Product",
                         action = "List",
@@ -72,16 +76,16 @@ namespace SportStore.Web
                     }
                 );
                 endpoints.MapControllerRoute(
-                    name: null,
-                    pattern: "",
-                    defaults: new
+                    null,
+                    "",
+                    new
                     {
                         controller = "Product",
                         action = "List",
                         productPage = 1
                     });
 
-                endpoints.MapControllerRoute(name: null, pattern: "{controller}/{action}/{id?}");
+                endpoints.MapControllerRoute(null, "{controller}/{action}/{id?}");
             });
         }
     }

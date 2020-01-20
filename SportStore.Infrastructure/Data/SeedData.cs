@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,11 +9,21 @@ namespace SportStore.Infrastructure.Data
 {
     public static class SeedData
     {
+        private const string AdminUser = "Admin";
+        private const string AdminPassword = "Secret123$";
+
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>());
-            // Will create if not existed, it works outside of migrations
-            //context.Database.EnsureCreated();
+            EnsureIdentityPopulated(serviceProvider.GetRequiredService<UserManager<IdentityUser>>());
+            EnsurePopulated(new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()));
+        }
+
+        /**
+         * Another options to do (outside of migrations) is following:
+         * context.Database.EnsureCreated();
+         */
+        private static void EnsurePopulated(AppDbContext context)
+        {
             if (context.Products.Any())
             {
                 return;
@@ -21,7 +32,18 @@ namespace SportStore.Infrastructure.Data
             PopulateTestData(context);
         }
 
-        public static void PopulateTestData(AppDbContext dbContext)
+        private static async void EnsureIdentityPopulated(UserManager<IdentityUser> userManager)
+        {
+            var user = await userManager.FindByIdAsync(AdminUser);
+            if (user != null)
+            {
+                return;
+            }
+            user = new IdentityUser(AdminUser);
+            await userManager.CreateAsync(user, AdminPassword);
+        }
+
+        private static void PopulateTestData(AppDbContext dbContext)
         {
             foreach (var item in dbContext.Products)
             {
