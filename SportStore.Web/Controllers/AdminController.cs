@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportStore.Core;
 using SportStore.Core.Entities;
@@ -8,6 +9,7 @@ using SportStore.Web.Models.Dto;
 
 namespace SportStore.Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IRepository<Product> _repository;

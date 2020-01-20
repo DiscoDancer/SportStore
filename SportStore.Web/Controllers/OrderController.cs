@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportStore.Core;
 using SportStore.Core.BusinessLogic;
@@ -42,10 +43,12 @@ namespace SportStore.Web.Controllers
 
         }
 
+        [Authorize]
         public ViewResult List() =>
             View(_repository.List().Where(o => !o.Shipped).Select(_mapper.Map<OrderDto>));
 
         [HttpPost]
+        [Authorize]
         public IActionResult MarkShipped(int id)
         {
             var order = _repository.List()
