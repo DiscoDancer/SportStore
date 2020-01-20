@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SportStore.Infrastructure.Data;
+using SportStore.Infrastructure;
 
 namespace SportStore.Web
 {
@@ -19,7 +19,7 @@ namespace SportStore.Web
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    StartupSetup.InitialiseDatabases(services);
                 }
                 catch (Exception ex)
                 {
@@ -31,11 +31,10 @@ namespace SportStore.Web
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        }
     }
 }
