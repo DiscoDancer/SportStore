@@ -29,7 +29,7 @@ module.exports = {
         }),
         new CopyPlugin([
             { from: './node_modules/bootstrap/dist', to: 'libs/bootstrap' },
-            { from: './node_modules/@fortawesome/fontawesome-free/css', to: 'libs/fortawesome/css' },
+            { from: './node_modules/@fortawesome/fontawesome-free', to: 'libs/fortawesome' },
         ]),
         new CleanWebpackPlugin(),
     ],
