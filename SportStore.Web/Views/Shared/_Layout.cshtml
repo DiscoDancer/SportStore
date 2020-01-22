@@ -7,21 +7,13 @@
     <title>SportsStore</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse bg-inverse" role="navigation">
-        <div class="row">
-            <a class="col navbar-brand" href="#">SPORTS STORE</a>
-            <div class="col-4 text-right">
-                @await Component.InvokeAsync("CartSummary")
-            </div>
-        </div>
-    </div>
-    <div class="row m-1 p-1">
-        <div id="categories" class="col-3">
-            @await Component.InvokeAsync("NavigationMenu")
-        </div>
-        <div class="col-9">
+    @await Component.InvokeAsync("NavigationMenu")
+    <div class="row m-1 p-1 ">
+        <div class="offset-1 col-10">
             @RenderBody()
         </div>
     </div>
+    <script src="~/dist/libs/jquery/jquery.min.js"></script>
+    <script src="~/dist/libs/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
-</html>
+</html> 

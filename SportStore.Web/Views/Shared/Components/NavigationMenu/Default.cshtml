@@ -1,19 +1,36 @@
 ﻿@model IEnumerable<string>
-<a class="btn btn-block btn-secondary"
-   asp-action="List"
-   asp-controller="Product"
-   asp-route-category="">
-    Home
-</a>
 
-@foreach (string category in Model)
-{
-    <a class="btn btn-block
-@(category == ViewBag.SelectedCategory ? "btn-primary": "btn-secondary")"
-       asp-action="List"
-       asp-controller="Product"
-       asp-route-category="@category"
-       asp-route-productPage="1">
-        @category
-    </a>
-}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+    <a class="navbar-brand" href="#">SPORTS STORE</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-action="List"
+                   asp-controller="Product"
+                   asp-route-category="">
+                    Home
+                </a>
+            </li>
+            @foreach (var category in Model)
+            {
+                <li class="nav-item @(category == ViewBag.SelectedCategory ? "active": "")">
+                    <a class="nav-link"
+                       asp-action="List"
+                       asp-controller="Product"
+                       asp-route-category="@category"
+                       asp-route-productPage="1">
+                        @category
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <span class="text-right">
+        @await Component.InvokeAsync("CartSummary")
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>

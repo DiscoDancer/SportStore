@@ -30,6 +30,7 @@ module.exports = {
         new CopyPlugin([
             { from: './node_modules/bootstrap/dist', to: 'libs/bootstrap' },
             { from: './node_modules/@fortawesome/fontawesome-free', to: 'libs/fortawesome' },
+            { from: './node_modules/jquery/dist', to: 'libs/jquery' },
         ]),
         new CleanWebpackPlugin(),
     ],
