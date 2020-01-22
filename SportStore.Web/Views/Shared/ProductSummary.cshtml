@@ -1,24 +1,27 @@
 ﻿@model SportStore.Web.Models.Dto.ProductDto
-<div class="card card-outline-primary m-1 p-1">
-    <div class="bg-faded p-1">
-        <h4>
+<div class="card m-1 p-1">
+    <div class="card-body p-1">
+        <h4 class="card-title">
             @Model.Name
             <span class="badge badge-pill badge-primary" style="float:right">
                 <small>@Model.Price.ToString("c")</small>
             </span>
         </h4>
-    </div>
-    <form id="@Model.Id" asp-action="AddToCart"
-          asp-controller="Cart" method="post">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" name="returnUrl"
-               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <span class="card-text p-1">
+        <p class="card-text">
             @Model.Description
+        </p>
+        <form id="@Model.Id"
+              asp-action="AddToCart"
+              asp-controller="Cart"
+              method="post"
+              class="card-text">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="returnUrl"
+                   value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit"
-                    class="btn btn-success btn-sm pull-right" style="float:right">
+                    class="btn btn-success btn-sm">
                 Add To Cart
             </button>
-        </span>
-    </form>
+        </form>
+    </div>
 </div>
