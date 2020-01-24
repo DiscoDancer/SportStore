@@ -31,6 +31,8 @@ module.exports = {
             { from: './node_modules/bootstrap/dist', to: 'libs/bootstrap' },
             { from: './node_modules/@fortawesome/fontawesome-free', to: 'libs/fortawesome' },
             { from: './node_modules/jquery/dist', to: 'libs/jquery' },
+            { from: './node_modules/jquery-validation/dist', to: 'libs/jquery-validation' },
+            { from: './node_modules/jquery-validation-unobtrusive/dist', to: 'libs/jquery-validation-unobtrusive' },
         ]),
         new CleanWebpackPlugin(),
     ],
