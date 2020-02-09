@@ -18,5 +18,7 @@ namespace SportStore.Web.Models.Dto
         public string Category { get; set; }
 
         public int Id { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

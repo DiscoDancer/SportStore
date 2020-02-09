@@ -1,27 +1,28 @@
 ﻿@model SportStore.Web.Models.Dto.ProductDto
-<div class="card m-1 p-1">
-    <div class="card-body p-1">
-        <h4 class="card-title">
-            @Model.Name
-            <span class="badge badge-pill badge-primary" style="float:right">
-                <small>@Model.Price.ToString("c")</small>
-            </span>
-        </h4>
-        <p class="card-text">
-            @Model.Description
-        </p>
-        <form id="@Model.Id"
-              asp-action="AddToCart"
-              asp-controller="Cart"
-              method="post"
-              class="card-text">
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" name="returnUrl"
-                   value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit"
-                    class="btn btn-success btn-sm">
-                Add To Cart
-            </button>
-        </form>
+    <div class="card m-1 p-1">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Card image cap" style="max-width: 200px; max-height: 200px;">
+        <div class="card-body p-1">
+            <h4 class="card-title">
+                @Model.Name
+                <span class="badge badge-pill badge-primary" style="float: right">
+                    <small>@Model.Price.ToString("c")</small>
+                </span>
+            </h4>
+            <p class="card-text">
+                @Model.Description
+            </p>
+            <form id="@Model.Id"
+                  asp-action="AddToCart"
+                  asp-controller="Cart"
+                  method="post"
+                  class="card-text">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" name="returnUrl"
+                       value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                <button type="submit"
+                        class="btn btn-success btn-sm">
+                    Add To Cart
+                </button>
+            </form>
+        </div>
     </div>
-</div>
